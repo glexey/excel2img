@@ -1,6 +1,13 @@
 # excel2img
 Save ranges from Excel documents as images
 
+
+## Requirements
+1. Python 2.7.x (TODO: add support for 3.x)
+1. [pywin32](http://sourceforge.net/projects/pywin32/files/pywin32)
+1. [Pillow](https://pypi.python.org/pypi/Pillow) >= 3.3.1 (pip install PIL --upgrade)
+1. Microsoft Excel (tested with Office 2013, on Windows 10)
+
 ## Usage as python module
 
 ```python
@@ -32,9 +39,3 @@ python excel2img.py test.xlsx test.png -r MyNamedRange
 python excel2img.py test.xlsx test.gif -r 'Sheet3!B5:C8'
 python excel2img.py test.xlsx test.bmp -r 'Sheet4!SheetScopedNamedRange'
 ```
-
-## Requirements
-1. Python 2.7.x (TODO: add support for 3.x)
-1. Pillow >= 3.3.1 (pip install PIL --upgrade)
-1. win32com
-1. Microsoft Excel (tested with Office 2013, on Windows 10)
