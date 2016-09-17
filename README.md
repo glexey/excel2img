@@ -1,7 +1,7 @@
 # excel2img
 Save ranges from Excel documents as images
 
-# Usage as python module
+## Usage as python module
 
 ```python
 import excel2img
@@ -16,7 +16,7 @@ excel2img.export_img("test.xlsx", "test.bmp", "", "Sheet2!B2:C15")
 excel2img.export_img("test.xlsx", "test.gif", "", "MyNamedRange")
 ```
 
-# Usage from command line
+## Usage from command line
 
 ```shell
 # Save as PNG the range of used cells in test.xlsx on first page
@@ -33,7 +33,7 @@ python excel2img.py test.xlsx test.gif -r 'Sheet3!B5:C8'
 python excel2img.py test.xlsx test.bmp -r 'Sheet4!SheetScopedNamedRange'
 ```
 
-# Requirements
+## Requirements
 1. Python 2.7.x (TODO: add support for 3.x)
 1. Pillow >= 3.3.1 (pip install PIL --upgrade)
 1. win32com
