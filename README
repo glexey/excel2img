@@ -17,7 +17,7 @@ Usage as python module
 
 .. code:: python
 
-    import excel2img
+    from excel2img import excel2img
 
     # Save as PNG the range of used cells in test.xlsx on page named "Sheet1"
     excel2img.export_img("test.xlsx", "test.png", "Sheet1", None)
