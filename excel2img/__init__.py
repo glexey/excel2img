@@ -1,2 +1,2 @@
-from excel2img import export_img
+from .excel2img import export_img
 

@@ -15,6 +15,10 @@
 
 import os
 import sys
+import win32com.client
+from optparse import OptionParser
+from pywintypes import com_error
+from PIL import ImageGrab # Note: PIL >= 3.3.1 required to work well with Excel screenshots
 
 class ExcelFile(object):
     @classmethod
@@ -39,8 +43,6 @@ class ExcelFile(object):
             raise IOError('No such excel file: %s', filename)
 
         try:
-            from pywintypes import com_error
-            import win32com.client
             # Using DispatchEx to start new Excel instance, to not interfere with
             # one already possibly running on the desktop
             self.app = win32com.client.DispatchEx('Excel.Application')
@@ -83,16 +85,12 @@ def export_img(fn_excel, fn_image, page=None, _range=None):
         xlScreen, xlPrinter = 1, 2
         xlPicture, xlBitmap = -4147, 2
         rng.CopyPicture(xlScreen, xlBitmap)
-        from PIL import ImageGrab, PILLOW_VERSION
-        # PIL >= 3.3.1 required to work well with Excel screenshots
-        assert tuple(int(x) for x in PILLOW_VERSION.split('.')) >= (3,3,1), "PIL >= 3.3.1 required"
         im = ImageGrab.grabclipboard()
         im.save(fn_image, fn_image[-3:])
 
 
 if __name__ == '__main__':
 
-    from optparse import OptionParser
     parser = OptionParser(usage='''%prog excel_filename image_filename [options]\nExamples:
             %prog test.xlsx test.png
             %prog test.xlsx test.png -p Sheet2

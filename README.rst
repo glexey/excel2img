@@ -6,10 +6,9 @@ Save ranges from Excel documents as images
 Requirements
 ------------
 
-1. Python 2.7.x (TODO: add support for 3.x)
+1. Python 2.7, 3.3 and later
 2. `pywin32 <http://sourceforge.net/projects/pywin32/files/pywin32>`__
-3. `Pillow <https://pypi.python.org/pypi/Pillow>`__ >= 3.3.1 (pip
-   install PIL --upgrade)
+3. `Pillow <https://pypi.python.org/pypi/Pillow>`__ >= 3.3.1
 4. Microsoft Excel (tested with Office 2013, on Windows 10)
 
 Usage as python module
@@ -45,3 +44,17 @@ Usage from command line
     # More range syntax examples
     python excel2img.py test.xlsx test.gif -r 'Sheet3!B5:C8'
     python excel2img.py test.xlsx test.bmp -r 'Sheet4!SheetScopedNamedRange'
+
+Author
+=======
+
+Alexey Gaydyukov <glexey@gmail.com>
+
+License
+========
+Apache License 2.0
+
+Credits
+========
+Inspired by `visio2img <https://github.com/visio2img/visio2img>`__
+
