@@ -84,9 +84,22 @@ def export_img(fn_excel, fn_image, page=None, _range=None):
                 raise Exception("Failed locating range %s"%(_range))
         xlScreen, xlPrinter = 1, 2
         xlPicture, xlBitmap = -4147, 2
-        rng.CopyPicture(xlScreen, xlBitmap)
-        im = ImageGrab.grabclipboard()
-        im.save(fn_image, fn_image[-3:])
+        # excel.workbook.Activate() # Trying to solve intermittent CopyPicture failure (didn't work, only becomes worse)
+        # rng.Parent.Activate()     # http://answers.microsoft.com/en-us/msoffice/forum/msoffice_excel-msoffice_custom/
+        # rng.Select()              # cannot-use-the-rangecopypicture-method-to-copy-the/8bb3ef11-51c0-4fb1-9a8b-0d062bde582b?auth=1
+        retries, success = 10, False
+        while not success:
+            try:
+                rng.CopyPicture(xlScreen, xlBitmap)
+                im = ImageGrab.grabclipboard()
+                im.save(fn_image, fn_image[-3:])
+                success = True
+            except (com_error, AttributeError) as e:
+                # http://stackoverflow.com/questions/24740062/copypicture-method-of-range-class-failed-sometimes
+                # When other (big) Excel documents are open CopyPicture fails intermittently
+                retries -= 1
+                # print "CopyPicture failed, retries left:", retries
+                if retries == 0: raise
 
 
 if __name__ == '__main__':
