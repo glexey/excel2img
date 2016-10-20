@@ -87,7 +87,7 @@ def export_img(fn_excel, fn_image, page=None, _range=None):
         # excel.workbook.Activate() # Trying to solve intermittent CopyPicture failure (didn't work, only becomes worse)
         # rng.Parent.Activate()     # http://answers.microsoft.com/en-us/msoffice/forum/msoffice_excel-msoffice_custom/
         # rng.Select()              # cannot-use-the-rangecopypicture-method-to-copy-the/8bb3ef11-51c0-4fb1-9a8b-0d062bde582b?auth=1
-        retries, success = 10, False
+        retries, success = 100, False
         while not success:
             try:
                 rng.CopyPicture(xlScreen, xlBitmap)
