@@ -1,8 +1,9 @@
 from distutils.core import setup
+from excel2img import __version__
 setup(
         name = 'excel2img',
         packages = ['excel2img'],
-        version = '0.7',
+        version = __version__,
         description = 'Save ranges from Excel documents as images',
         long_description=open('README.rst').read(),
         author = 'Alexey Gadyukov',
