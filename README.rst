@@ -11,6 +11,13 @@ Requirements
 3. `Pillow <https://pypi.python.org/pypi/Pillow>`__ >= 3.3.1
 4. Microsoft Excel (tested with Office 2013, on Windows 10)
 
+Installation
+------------
+
+.. code:: shell
+
+    pip install excel2img
+
 Usage as python module
 ----------------------
 
