@@ -16,6 +16,7 @@
 import os
 import sys
 import win32com.client
+from pythoncom import CoInitialize, CoUninitialize
 from optparse import OptionParser
 from pywintypes import com_error
 from PIL import ImageGrab # Note: PIL >= 3.3.1 required to work well with Excel screenshots
@@ -29,6 +30,7 @@ class ExcelFile(object):
 
     def __init__(self):
         self.app = None
+        self.workbook = None
 
     def __enter__(self):
         return self
@@ -42,10 +44,12 @@ class ExcelFile(object):
         if not os.path.exists(excel_pathname):
             raise IOError('No such excel file: %s', filename)
 
+        CoInitialize()
         try:
             # Using DispatchEx to start new Excel instance, to not interfere with
             # one already possibly running on the desktop
             self.app = win32com.client.DispatchEx('Excel.Application')
+            self.app.Visible = 0
         except:
             raise OSError('Failed to start Excel')
 
@@ -56,7 +60,14 @@ class ExcelFile(object):
             raise IOError('Failed to open %s'%filename)
 
     def close(self):
-        self.workbook.Close(SaveChanges=False)
+        if self.workbook is not None:
+            self.workbook.Close(SaveChanges=False)
+            self.workbook = None
+        if self.app is not None:
+            self.app.Visible = 0
+            self.app.Quit()
+            self.app = None
+        CoUninitialize()
 
 
 def export_img(fn_excel, fn_image, page=None, _range=None):
@@ -98,7 +109,7 @@ def export_img(fn_excel, fn_image, page=None, _range=None):
                 # http://stackoverflow.com/questions/24740062/copypicture-method-of-range-class-failed-sometimes
                 # When other (big) Excel documents are open CopyPicture fails intermittently
                 retries -= 1
-                # print "CopyPicture failed, retries left:", retries
+                #print "CopyPicture failed, retries left:", retries
                 if retries == 0: raise
 
 
