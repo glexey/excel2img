@@ -1,5 +1,5 @@
 from distutils.core import setup
-from excel2img import __version__
+execfile("excel2img/version.py")
 setup(
         name = 'excel2img',
         packages = ['excel2img'],
