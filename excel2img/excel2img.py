@@ -93,11 +93,16 @@ def export_img(fn_excel, fn_image, page=None, _range=None):
                 rng = excel.workbook.Application.Range(_range)
             except com_error:
                 raise Exception("Failed locating range %s"%(_range))
-        xlScreen, xlPrinter = 1, 2
-        xlPicture, xlBitmap = -4147, 2
+
         # excel.workbook.Activate() # Trying to solve intermittent CopyPicture failure (didn't work, only becomes worse)
         # rng.Parent.Activate()     # http://answers.microsoft.com/en-us/msoffice/forum/msoffice_excel-msoffice_custom/
         # rng.Select()              # cannot-use-the-rangecopypicture-method-to-copy-the/8bb3ef11-51c0-4fb1-9a8b-0d062bde582b?auth=1
+        
+        # See http://stackoverflow.com/a/42465354/1924207
+        for shape in rng.parent.Shapes: pass
+
+        xlScreen, xlPrinter = 1, 2
+        xlPicture, xlBitmap = -4147, 2
         retries, success = 100, False
         while not success:
             try:
