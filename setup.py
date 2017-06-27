@@ -1,5 +1,5 @@
 from distutils.core import setup
-execfile("excel2img/version.py")
+exec(open("excel2img/version.py").read())
 setup(
         name = 'excel2img',
         packages = ['excel2img'],
@@ -11,10 +11,11 @@ setup(
         url = 'https://github.com/glexey/excel2img',
         keywords = ['excel', 'range', 'image', 'CopyAsPicture'],
         install_requires = [
-            'Pillow>=3.3.1'
+            'Pillow>=3.3.1',
+            'pypiwin32',
             ],
         classifiers = [
-            'Development Status :: 4 - Beta',
+            'Development Status :: 5 - Production/Stable',
             'Environment :: Console',
             'Environment :: Win32 (MS Windows)',
             'Intended Audience :: System Administrators',
@@ -26,6 +27,8 @@ setup(
             'Programming Language :: Python :: 3',
             'Programming Language :: Python :: 3.3',
             'Programming Language :: Python :: 3.4',
+            'Programming Language :: Python :: 3.5',
+            'Programming Language :: Python :: 3.6',
             'Topic :: Documentation',
             'Topic :: Multimedia :: Graphics :: Graphics Conversion',
             'Topic :: Office/Business :: Office Suites',
