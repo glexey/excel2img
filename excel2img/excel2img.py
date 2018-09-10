@@ -79,7 +79,7 @@ def export_img(fn_excel, fn_image, page=None, _range=None):
 
     # if both page and page-less range are specified, concatenate them into range
     if _range is not None and page is not None and '!' not in _range:
-        _range = "%s!%s"%(page, _range)
+        _range = "'%s'!%s"%(page, _range)
 
     with ExcelFile.open(fn_excel) as excel:
         if _range is None:
