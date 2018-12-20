@@ -10,7 +10,6 @@ matrix:
         - python --version
         - python -m pip install --upgrade pip wheel
 install: 
-    - pip install -r requirements.txt
     - pip install .
     - pip install pytest
 env:
