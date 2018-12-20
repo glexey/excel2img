@@ -1,10 +1,4 @@
-language: python
-python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-  - "pypy3"
+language: generic
 matrix:
   include:
     - os: windows
@@ -13,10 +7,14 @@ matrix:
       before_install:
         - choco install python3
         - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+        - python --version
         - python -m pip install --upgrade pip wheel
 install: 
-    - python --version
-    - pip install pytest
     - pip install -r requirements.txt
+    - pip install .
+    - pip install pytest
+env:
+    PYTEST_SKIP_EXCEL=yes
 script:
-    py.test
+    - py.test
+    - python excel2img/excel2img.py

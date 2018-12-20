@@ -1,4 +1,6 @@
+.*/
 build/
 dist/
 MANIFEST
 *.pyc
+tests/*.png

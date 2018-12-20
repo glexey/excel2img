@@ -1,2 +1,2 @@
-pywin32
+pypiwin32
 Pillow>=5.2
