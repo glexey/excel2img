@@ -1,0 +1,8 @@
+os: windows
+language: bash
+
+install:
+    - choco install -y python2
+    - type -a python
+    - python --version
+
