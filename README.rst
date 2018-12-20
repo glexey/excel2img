@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/glexey/excel2img.svg?branch=master
+    :target: https://travis-ci.org/glexey/excel2img
+ 
 excel2img
 =========
 
@@ -6,7 +9,7 @@ Save ranges from Excel documents as images
 Requirements
 ------------
 
-1. Python 2.7, 3.3 and later
+1. Python 2.7, 3.3 or later
 2. `pywin32 <http://sourceforge.net/projects/pywin32/files/pywin32>`__
 3. `Pillow <https://pypi.python.org/pypi/Pillow>`__ >= 3.3.1
 4. Microsoft Excel (tested with Office 2013, on Windows 10)
