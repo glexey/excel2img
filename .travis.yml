@@ -27,7 +27,7 @@ jobs:
         - python --version
         - python -m pip install --upgrade pip wheel
     - stage: deploy
-      if: (branch = master) AND ( tag =~ ^\d+\.\d+(\.\d+)?$ )
+      if: tag =~ /^\d+\.\d+(\.\d+)?$/
       name: "PyPi Release"
       os: windows
       language: sh
