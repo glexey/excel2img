@@ -1,4 +1,3 @@
-language: generic
 install: 
     - pip install .
     - pip install pytest
@@ -28,16 +27,13 @@ jobs:
         - python --version
         - python -m pip install --upgrade pip wheel
     - stage: deploy
+      if: (branch = master) AND ( tag =~ ^\d+\.\d+(\.\d+)?$ )
       name: "PyPi Release"
       os: windows
+      language: sh
       script: skip
       deploy:
         provider: pypi
-        on:
-          tags: true
-          branch:
-            - master
-            - /(\d+\.)?(\d+\.)?(\*|\d+)$/
         user: glexey
         password:
           secure: OETnqyrq/ZWYVX7GkT2mCTOnblmKjaYGTzyjhDkkZ9G1+pJn2jgha9bOqRWmVDjzkXlPHH6lZvqN2oHnRl/oJ+BROVp0/ccgsj1UFCkR7OhsS7JhyKqFZIptavDCtqrVnFOSmAcDxHriAvE72Oq8sRrqLT6H32ptpnqt70BxmcjeB5HF0FtqdaLSQ2e2VqvRhyfcusWrniQ4Vt06dQw+JsAoBi3v3HXF6OVsllZw/VZc+V0SPElNvER8GZxbvbpTFFO8XjqKmFo6E/kbkKd5XjZeGOFO3YiTKtdn+Ir6OdISTOKHM8mP9bD8uBHx8MPvFOIhubjzNbumBj1xBJ/mpBMZXkBh6IVDPxvVP6TI1wS4vHs++DZHuL3NnA4OeItbMsQi7O5Ts3ZyV37vmN0y9EwNAdBdGUIYInh806ao57SwQDhas5HVS0KbmDkfCANtOvznJSsMVSHk3NZ4WYZ5+DgiGS+XznrPdZLi0YQ0D0epcPOAwk/p7Y5rUT7vShHxw0ECno1iWAS5xlfmJfuwhs6COXW5uG6zLXr4ccxeJqtFmEJRPMtXbQGtsuYM73FjduqY2Iqks+Zf/dLy1xc/QGa9eYUN2Y7sCrC9MjJY9idwFTjouPRIa84UvpWcSK8ThO5LRfTW4S9mN7FPWHkPTQhuvSQ1HEPO6J5iMDWmY2k=
