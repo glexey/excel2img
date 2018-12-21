@@ -25,3 +25,15 @@ env:
 script:
     - py.test
     - python excel2img/excel2img.py
+
+deploy:
+  provider: pypi
+  on:
+    tags: true
+    branch:
+      - master
+      - /(\d+\.)?(\d+\.)?(\*|\d+)$/
+  user: glexey
+  password:
+      secure: H7Zf8vbIAnUycP9jL3a81CoibNP5N3V8SwO9vjNuyfUpHRldFZs8I/k+PDPlx2JllPbxz9t11lUeHwDSqF4ik1F6Hu39it7wg2pWevHULnGqGJsUkYuHle3HnqUyp64knuf2ORDM17IAoXFcUWiuAMJSd8D6Hv5gM2xpAcoWJVBhTJYIqDQPTNHdU+7Yigptn1TeC511V6cLyszX/i/UqPwRpB9FjVnUPpugCazdF4WV8S12JD72Qs4X+PQxb7r4L7zmT3+ohkyRXuCZP1yaNFwKCuTMj3URysAgQQam/cuYeGWYe2OFPBQurPib9JME4FoeDIar9eKRoOLeySdJMre49JWeLFElaqB1isRWamIwRPzfYy+BqIsHu0OZVxjhPOdkyvXpBeTS4YX97nYfKLIHeJ3oZPm9XO6ssnkiYf/gp1UQs5w5fViE1sc37mZz4poLUfgMjMVWp4iCb153UPO7al1l2Ke084h7ZWB6U5om0paeRMl+XGuLMy/+J+U8HKB1FX/Oa/tT3L1c63lgZ7oT32xmZ6zDOJMjkXmbnef9+dce0j8JwOg1CJTJi9exGay6NcOsUalTliIbdDWp/eB3Bq/m3EEP7orHOzeKTkelKHYDeJNlSK2AcRY0KLXwfAr+B/i0uhA3JiY0/2QJ5KbSr921biBKE73Lqeu4HLA=
+
