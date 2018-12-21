@@ -75,7 +75,7 @@ def export_img(fn_excel, fn_image, page=None, _range=None):
 
     output_ext = os.path.splitext(fn_image)[1].upper()
     if output_ext not in ('.GIF', '.BMP', '.PNG'):
-        parser.error('Unsupported image format: %s'%output_ext)
+        raise ValueError('Unsupported image format: %s'%output_ext)
 
     # if both page and page-less range are specified, concatenate them into range
     if _range is not None and page is not None and '!' not in _range:
@@ -88,6 +88,17 @@ def export_img(fn_excel, fn_image, page=None, _range=None):
                 rng = excel.workbook.Sheets(page).UsedRange
             except com_error:
                 raise Exception("Failed locating used cell range on page %s"%page)
+            except AttributeError:
+                # This might be a "chart page", try exporting it as a whole
+                rng = excel.workbook.Sheets(page).Export(os.path.abspath(fn_image))
+                return
+            if str(rng) == "None":
+                # No used cells on a page. maybe there's a single object.. try simply exporting as png
+                shapes = excel.workbook.Sheets(page).Shapes
+                if len(shapes) == 1:
+                    rng = shapes[0]
+                else:
+                    raise Exception("Failed locating used cells or single object to print on page %s"%page)
         else:
             try:
                 rng = excel.workbook.Application.Range(_range)
