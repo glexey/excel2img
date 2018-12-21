@@ -38,6 +38,11 @@ jobs:
         - python -m pip install --upgrade pip wheel
       script: skip
       deploy:
+        on:
+          tags: true
+          branch:
+            - master
+            - /(\d+\.)?(\d+\.)?(\*|\d+)$/
         provider: pypi
         user: glexey
         password:
