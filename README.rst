@@ -1,5 +1,8 @@
-.. image:: https://img.shields.io/travis/glexey/excel2img.svg :target: https://travis-ci.org/glexey/excel2img
-.. image:: https://img.shields.io/pypi/dm/excel2img.svg :target: https://pypi.org/project/excel2img
+.. image:: https://img.shields.io/travis/glexey/excel2img.svg
+    :target: https://travis-ci.org/glexey/excel2img
+
+.. image:: https://img.shields.io/pypi/dm/excel2img.svg
+    :target: https://pypi.org/project/excel2img
 
 excel2img
 =========
