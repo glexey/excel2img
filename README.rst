@@ -45,6 +45,12 @@ Usage as python module
 
     # Save as GIF the range "MyNamedRange"
     excel2img.export_img("test.xlsx", "test.gif", "", "MyNamedRange")
+    
+    # Save with autofit on all column
+    excel2img.export_img("test.xlsx", "test.gif", "", "MyNamedRange", True)
+    
+    # Save with autofit on range B2:C15
+    excel2img.export_img("test.xlsx", "test.gif", "", "MyNamedRange", None, "B2:C15")
 
 Usage from command line
 -----------------------
