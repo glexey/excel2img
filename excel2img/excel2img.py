@@ -55,6 +55,7 @@ class ExcelFile(object):
 
         try:
             self.workbook = self.app.Workbooks.Open(excel_pathname, ReadOnly=True)
+            self.workbook.UpdateLink(Name=self.workbook.LinkSources())
         except:
             self.close()
             raise IOError('Failed to open %s'%filename)
@@ -70,7 +71,7 @@ class ExcelFile(object):
         CoUninitialize()
 
 
-def export_img(fn_excel, fn_image, page=None, _range=None, autofit=None, _af_range=None):
+def export_img(fn_excel, fn_image, page=None, _range=None, autofit=None):
     """ Exports images from excel file """
 
     output_ext = os.path.splitext(fn_image)[1].upper()
@@ -86,6 +87,7 @@ def export_img(fn_excel, fn_image, page=None, _range=None, autofit=None, _af_ran
             if page is None: page = 1
             try:
                 rng = excel.workbook.Sheets(page).UsedRange
+                
             except com_error:
                 raise Exception("Failed locating used cell range on page %s"%page)
             except AttributeError:
@@ -106,10 +108,13 @@ def export_img(fn_excel, fn_image, page=None, _range=None, autofit=None, _af_ran
                 raise Exception("Failed locating range %s"%(_range))
 
         if autofit is not None:
-            excel.workbook.Application.Range(rng).Columns.AutoFit()
-        elif _af_range is not None:
-            excel.workbook.Application.Range(_af_range).Columns.AutoFit()
-                
+            if autofit == True:
+                # excel.workbook.Sheets(page).Columns.AutoFit()
+                rng.Columns.AutoFit()
+            else:
+                # excel.workbook.Sheets(page).Columns.AutoFit()
+                excel.workbook.Application.Range(autofit).Columns.AutoFit()
+
         # excel.workbook.Activate() # Trying to solve intermittent CopyPicture failure (didn't work, only becomes worse)
         # rng.Parent.Activate()     # http://answers.microsoft.com/en-us/msoffice/forum/msoffice_excel-msoffice_custom/
         # rng.Select()              # cannot-use-the-rangecopypicture-method-to-copy-the/8bb3ef11-51c0-4fb1-9a8b-0d062bde582b?auth=1
@@ -141,15 +146,21 @@ if __name__ == '__main__':
             %prog test.xlsx test.png -p Sheet2
             %prog test.xlsx test.png -r MyNamedRange
             %prog test.xlsx test.png -r 'Sheet3!B5:C8'
-            %prog test.xlsx test.png -r 'Sheet4!SheetScopedNamedRange' ''')
+            %prog test.xlsx test.png -r 'Sheet4!SheetScopedNamedRange'
+            ''')
     parser.add_option('-p', '--page', help='pick a page (sheet) by page name. When not specified (and RANGE either not specified or doesn\'t imply a page), first page will be selected')
     parser.add_option('-r', '--range', metavar='RANGE', dest='_range', help='pick a range, in Excel notation. When not specified all used cells on a page will be selected')
-    parser.add_option('-af', '--autofit', help='Autofit the column')
-    parser.add_option('-afr', '--autofitr', metavar='RANGE', dest='_af_range', help='Autofit the column based on range provided')
+    parser.add_option('-F', '--autofit', action='store_true', help='Autofit the column for all range')
+    parser.add_option('-f', '--autofit-range', metavar='RANGE', dest='_af_range', help='Autofit the column based on range provided')
     opts, args = parser.parse_args()
 
     if len(args) != 2:
         parser.print_help(sys.stderr)
         parser.exit()
-
-    export_img(args[0], args[1], opts.page, opts._range ,opts.autofit, opts._af_range)
+    
+    args_autofit = None
+    if opts.autofit is not None:
+        args_autofit = True
+    elif opts._af_range is not None:
+        args_autofit = opts._af_range
+    export_img(args[0], args[1], opts.page, opts._range, args_autofit)
