@@ -70,7 +70,7 @@ class ExcelFile(object):
         CoUninitialize()
 
 
-def export_img(fn_excel, fn_image, page=None, _range=None):
+def export_img(fn_excel, fn_image, page=None, _range=None,filepath = '.'):
     """ Exports images from excel file """
 
     output_ext = os.path.splitext(fn_image)[1].upper()
@@ -119,7 +119,7 @@ def export_img(fn_excel, fn_image, page=None, _range=None):
             try:
                 rng.CopyPicture(xlScreen, xlBitmap)
                 im = ImageGrab.grabclipboard()
-                im.save(fn_image, fn_image[-3:])
+                im.save(filepath+fn_image, fn_image[-3:])
                 success = True
             except (com_error, AttributeError) as e:
                 # http://stackoverflow.com/questions/24740062/copypicture-method-of-range-class-failed-sometimes
