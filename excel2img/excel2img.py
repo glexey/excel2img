@@ -70,7 +70,7 @@ class ExcelFile(object):
         CoUninitialize()
 
 
-def export_img(fn_excel, fn_image, page=None, _range=None,filepath = '.'):
+def export_img(fn_excel, fn_image, page=None, _range=None,filepath = ''):
     """ Exports images from excel file """
 
     output_ext = os.path.splitext(fn_image)[1].upper()
